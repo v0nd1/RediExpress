@@ -1,5 +1,6 @@
 package com.app.rediexpress.presentation.components
 
+import android.graphics.drawable.Icon
 import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.interaction.InteractionSource
@@ -65,12 +66,6 @@ fun ThemeTextField(
             singleLine = true,
             placeholder = {
                 Text(text = placeholder)
-            },
-            trailingIcon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.eye_splash),
-                    contentDescription = null
-                )
             },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedTextColor = Color.Black,

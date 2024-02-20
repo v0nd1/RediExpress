@@ -1,6 +1,7 @@
 package com.app.rediexpress.presentation.screens.welcome
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -38,7 +39,6 @@ import androidx.navigation.NavHostController
 import com.app.rediexpress.R
 import com.app.rediexpress.navigation.Screen
 import com.app.rediexpress.presentation.components.ThemeButton
-import com.app.rediexpress.presentation.components.ThemeOutlinedButton
 import com.app.rediexpress.ui.theme.Black
 import com.app.rediexpress.ui.theme.Blue
 import kotlinx.coroutines.launch
@@ -76,12 +76,18 @@ fun WelcomeScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ){
-                ThemeOutlinedButton(
+                ThemeButton(
                     label = "Skip",
                     onClick = {
                         navController.popBackStack()
-                        navController.navigate(Screen.Home.route)
-                    }
+                        navController.navigate("auth")
+                    },
+                    modifier = Modifier.width(100.dp).height(50.dp),
+                    border = BorderStroke(1.dp, Blue),
+                    containerColor = Color.Transparent,
+                    contentColor = Blue,
+                    fontSize = 14.sp
+
                 )
                 FinishButton(
                     pagerState = pagerState,
@@ -144,13 +150,15 @@ private fun FinishButton(pagerState: PagerState, navController: NavController){
             scope.launch {
                 if (pagerState.currentPage == 2){
                     navController.popBackStack()
-                    navController.navigate(Screen.Home.route)
+                    navController.navigate("auth")
                 }else{
                     pagerState.animateScrollToPage(
                         page = pagerState.currentPage + 1
                     )
                 }
             }
-        }
+        },
+        modifier = Modifier.width(100.dp).height(50.dp),
+        fontSize = 14.sp
     )
 }

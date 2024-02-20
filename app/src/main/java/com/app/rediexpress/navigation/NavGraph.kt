@@ -4,7 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.app.rediexpress.presentation.screens.home.HomeScreen
+import androidx.navigation.navigation
+import com.app.rediexpress.presentation.screens.login.LogInScreen
+import com.app.rediexpress.presentation.screens.scaffold.home.HomeScreen
+import com.app.rediexpress.presentation.screens.signup.SignUpScreen
 import com.app.rediexpress.presentation.screens.welcome.WelcomeScreen
 
 @Composable
@@ -19,8 +22,21 @@ fun SetupNavGraph(
         composable(route = Screen.Welcome.route){
             WelcomeScreen(navController)
         }
-        composable(route = Screen.Home.route){
-            HomeScreen()
+        navigation(
+            startDestination = Screen.SignUp.route,
+            route = "auth"
+        ){
+            composable(route = Screen.SignUp.route){
+                SignUpScreen(navController = navController)
+            }
+            composable(route = Screen.LogIn.route){
+                LogInScreen(navController = navController)
+            }
         }
+        composable(route = Screen.Main.route){
+
+
+        }
+
     }
 }
