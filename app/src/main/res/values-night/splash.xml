@@ -3,6 +3,6 @@
     <style name="Theme.Starting" parent="Theme.SplashScreen">
         <item name="postSplashScreenTheme">@style/Theme.RediExpress</item>
         <item name="windowSplashScreenBackground">@color/dark</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_splash</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash</item>
     </style>
 </resources>

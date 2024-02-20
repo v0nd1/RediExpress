@@ -11,5 +11,6 @@ val GrayLight = Color(0xFFCFCFCF)
 val Dark = Color(0xFF141414)
 val DarkLight = Color(0xFF3A3A3A)
 val White = Color(0xFFFFFFFF)
+val Black = Color(0xFF000000)
 
 val BlueDark = Color(0xFF000D1D)

@@ -20,7 +20,7 @@ val Typography = Typography(
         fontFamily = Roboto,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        lineHeight = 14.sp,
+        lineHeight = 22.sp,
         letterSpacing = 0.5.sp
     )
     /* Other default text styles to override

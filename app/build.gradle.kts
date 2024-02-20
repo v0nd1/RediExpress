@@ -77,8 +77,11 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
 
     // Accompanist pager + indicator
-    implementation("com.google.accompanist:accompanist-pager:6.1.0")
-    implementation("com.google.accompanist:accompanist-pager-indicators:6.1.0")
+    implementation("com.google.accompanist:accompanist-pager:0.35.0-alpha")
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.35.0-alpha")
+
+    // Datastore
+    implementation("androidx.datastore:datastore-preferences:1.1.0-beta01")
 
     //Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.46.1")
