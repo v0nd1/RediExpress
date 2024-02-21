@@ -1,10 +1,8 @@
 package com.app.rediexpress.presentation.screens.welcome
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,12 +17,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,10 +28,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import com.app.rediexpress.R
-import com.app.rediexpress.navigation.Screen
 import com.app.rediexpress.presentation.components.ThemeButton
 import com.app.rediexpress.ui.theme.Black
 import com.app.rediexpress.ui.theme.Blue
@@ -46,7 +39,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WelcomeScreen(
-    navController: NavHostController
+    onEvent: (WelcomeEvent) -> Unit
 ){
     val pages = listOf(
         OnBoardingPage.First,
@@ -79,19 +72,36 @@ fun WelcomeScreen(
                 ThemeButton(
                     label = "Skip",
                     onClick = {
-                        navController.popBackStack()
-                        navController.navigate("auth")
+
                     },
-                    modifier = Modifier.width(100.dp).height(50.dp),
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(50.dp),
                     border = BorderStroke(1.dp, Blue),
                     containerColor = Color.Transparent,
                     contentColor = Blue,
                     fontSize = 14.sp
 
                 )
-                FinishButton(
-                    pagerState = pagerState,
-                    navController = navController
+
+                val scope = rememberCoroutineScope()
+                ThemeButton(
+                    label = "Next",
+                    onClick = {
+                        scope.launch {
+                            if (pagerState.currentPage == 2){
+                                onEvent(WelcomeEvent.SaveAppEntry)
+                            }else{
+                                pagerState.animateScrollToPage(
+                                    page = pagerState.currentPage + 1
+                                )
+                            }
+                        }
+                    },
+                    modifier = Modifier
+                        .width(100.dp)
+                        .height(50.dp),
+                    fontSize = 14.sp
                 )
             }
         }
@@ -142,15 +152,17 @@ private fun PagerScreen(onBoardingPage: OnBoardingPage){
 }
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun FinishButton(pagerState: PagerState, navController: NavController){
+private fun FinishButton(
+    pagerState: PagerState,
+    onEvent: (WelcomeEvent) -> Unit
+){
     val scope = rememberCoroutineScope()
     ThemeButton(
         label = "Next",
         onClick = {
             scope.launch {
                 if (pagerState.currentPage == 2){
-                    navController.popBackStack()
-                    navController.navigate("auth")
+                    onEvent(WelcomeEvent.SaveAppEntry)
                 }else{
                     pagerState.animateScrollToPage(
                         page = pagerState.currentPage + 1
@@ -158,7 +170,9 @@ private fun FinishButton(pagerState: PagerState, navController: NavController){
                 }
             }
         },
-        modifier = Modifier.width(100.dp).height(50.dp),
+        modifier = Modifier
+            .width(100.dp)
+            .height(50.dp),
         fontSize = 14.sp
     )
 }

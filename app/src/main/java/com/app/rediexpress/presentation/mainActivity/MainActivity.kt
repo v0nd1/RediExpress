@@ -1,9 +1,10 @@
-package com.app.rediexpress
+package com.app.rediexpress.presentation.mainActivity
 
 import android.os.Bundle
 import android.view.WindowInsets.Side
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
@@ -19,23 +20,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import com.app.rediexpress.navigation.Screen
-import com.app.rediexpress.navigation.SetupNavGraph
+import com.app.rediexpress.presentation.navgraph.NavGraph
 import com.app.rediexpress.presentation.screens.signup.SignUpScreen
 import com.app.rediexpress.ui.theme.RediExpressTheme
-import com.app.rediexpress.viewmodel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var splashViewModel: SplashViewModel
+    private val viewModel by viewModels<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        installSplashScreen().setKeepOnScreenCondition{
-            !splashViewModel.isLoading.value
+        installSplashScreen().apply { 
+            setKeepOnScreenCondition(condition = { viewModel.splashCondition.value })
         }
         setContent {
             RediExpressTheme {
@@ -43,12 +41,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val screen by splashViewModel.startDestination
-                    val navController = rememberNavController()
-                    SetupNavGraph(
-                        navController = navController,
-                        startDestination = screen
-                    )
+                   NavGraph(startDestination = viewModel.startDestination.value)
                 }
             }
         }
