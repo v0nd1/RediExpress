@@ -1,12 +1,15 @@
 package com.app.rediexpress.presentation.navgraph
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.app.rediexpress.presentation.screens.auth.forgotpass.ForgotPasswordScreen
+import com.app.rediexpress.presentation.screens.auth.login.LogInScreen
+import com.app.rediexpress.presentation.screens.scaffold.MainScreen
+import com.app.rediexpress.presentation.screens.auth.signup.SignUpScreen
 import com.app.rediexpress.presentation.screens.welcome.WelcomeScreen
 import com.app.rediexpress.presentation.screens.welcome.WelcomeViewModel
 
@@ -18,23 +21,36 @@ fun NavGraph(
 
     NavHost(navController = navController, startDestination = startDestination) {
         navigation(
-            route = Route.AppStartNavigation.route,
-            startDestination = Route.WelcomeScreen.route
+            route = Screen.AppStartNavigation.route,
+            startDestination = Screen.Welcome.route
         ) {
-            composable(route = Route.WelcomeScreen.route) {
+            composable(route = Screen.Welcome.route) {
                 val viewModel: WelcomeViewModel = hiltViewModel()
-                WelcomeScreen(onEvent = viewModel::onEvent)
+                WelcomeScreen(
+                    onEvent = viewModel::onEvent,
+                    navController = navController
+                )
             }
         }
 
         navigation(
-            route = Route.NewsNavigation.route,
-            startDestination = Route.HomeScreen.route
+            route = Screen.AuthNavigation.route,
+            startDestination = Screen.SignUp.route
         ) {
-            composable(route = Route.HomeScreen.route) {
-                Text(text = "TEXT")
+            composable(route = Screen.SignUp.route) {
+                SignUpScreen(navController = navController)
+            }
+            composable(route = Screen.Login.route){
+                LogInScreen(navController = navController)
+            }
+            composable(route = Screen.ForgotPassword.route){
+                ForgotPasswordScreen(navController = navController)
             }
 
+        }
+
+        composable(route = Screen.MainNavigation.route){
+            MainScreen()
         }
     }
 }

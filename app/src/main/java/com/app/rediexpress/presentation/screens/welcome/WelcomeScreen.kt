@@ -3,6 +3,7 @@ package com.app.rediexpress.presentation.screens.welcome
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,13 +33,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.app.rediexpress.presentation.components.ThemeButton
+import com.app.rediexpress.presentation.navgraph.Screen
 import com.app.rediexpress.ui.theme.Black
 import com.app.rediexpress.ui.theme.Blue
+import com.app.rediexpress.ui.theme.Gray
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WelcomeScreen(
+    navController: NavController,
     onEvent: (WelcomeEvent) -> Unit
 ){
     val pages = listOf(
@@ -62,50 +66,79 @@ fun WelcomeScreen(
             PagerScreen(onBoardingPage = pages[it])
         }
         Box(modifier = Modifier.weight(2f)){
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ){
-                ThemeButton(
-                    label = "Skip",
-                    onClick = {
-
-                    },
+            if(pagerState.currentPage == 2){
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    ThemeButton(
+                        label = "Sign Up",
+                        onClick = {
+                            onEvent(WelcomeEvent.SaveAppEntry)
+                            navController.popBackStack()
+                            navController.navigate(Screen.AuthNavigation.route)
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Row {
+                        Text(
+                            text = "Already have an account?",
+                            color = Gray,
+                            fontSize = 12.sp
+                        )
+                        Text(
+                            text = "Sign in",
+                            color = Blue,
+                            fontSize = 12.sp,
+                            modifier = Modifier.clickable {
+                                navController.navigate(Screen.Login.route)
+                            }
+                        )
+                    }
+                }
+            }else{
+                Row(
                     modifier = Modifier
-                        .width(100.dp)
-                        .height(50.dp),
-                    border = BorderStroke(1.dp, Blue),
-                    containerColor = Color.Transparent,
-                    contentColor = Blue,
-                    fontSize = 14.sp
-
-                )
-
-                val scope = rememberCoroutineScope()
-                ThemeButton(
-                    label = "Next",
-                    onClick = {
-                        scope.launch {
-                            if (pagerState.currentPage == 2){
-                                onEvent(WelcomeEvent.SaveAppEntry)
-                            }else{
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    val scope = rememberCoroutineScope()
+                    ThemeButton(
+                        label = "Skip",
+                        onClick = {
+                            scope.launch {
+                                pagerState.animateScrollToPage(
+                                    page = pagerState.currentPage + 2
+                                )
+                            }
+                        },
+                        modifier = Modifier
+                            .width(100.dp)
+                            .height(50.dp),
+                        border = BorderStroke(1.dp, Blue),
+                        containerColor = Color.Transparent,
+                        contentColor = Blue,
+                        fontSize = 14.sp
+                    )
+                    ThemeButton(
+                        label = "Next",
+                        onClick = {
+                            scope.launch {
                                 pagerState.animateScrollToPage(
                                     page = pagerState.currentPage + 1
                                 )
                             }
-                        }
-                    },
-                    modifier = Modifier
-                        .width(100.dp)
-                        .height(50.dp),
-                    fontSize = 14.sp
-                )
+                        },
+                        modifier = Modifier
+                            .width(100.dp)
+                            .height(50.dp),
+                        fontSize = 14.sp
+                    )
+                }
             }
         }
-
     }
 }
 @Composable
@@ -149,30 +182,4 @@ private fun PagerScreen(onBoardingPage: OnBoardingPage){
             )
         }
     }
-}
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
-private fun FinishButton(
-    pagerState: PagerState,
-    onEvent: (WelcomeEvent) -> Unit
-){
-    val scope = rememberCoroutineScope()
-    ThemeButton(
-        label = "Next",
-        onClick = {
-            scope.launch {
-                if (pagerState.currentPage == 2){
-                    onEvent(WelcomeEvent.SaveAppEntry)
-                }else{
-                    pagerState.animateScrollToPage(
-                        page = pagerState.currentPage + 1
-                    )
-                }
-            }
-        },
-        modifier = Modifier
-            .width(100.dp)
-            .height(50.dp),
-        fontSize = 14.sp
-    )
 }
