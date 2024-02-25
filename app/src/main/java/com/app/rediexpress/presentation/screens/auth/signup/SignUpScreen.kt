@@ -113,7 +113,9 @@ fun SignUpScreen(navController: NavController){
             Icon(
                 painter = painterResource(id = R.drawable.icon_google),
                 contentDescription = null,
-                modifier = Modifier.size(20.dp),
+                modifier = Modifier
+                    .size(20.dp)
+                    .clickable {  },
                 tint = Orange
             )
         }

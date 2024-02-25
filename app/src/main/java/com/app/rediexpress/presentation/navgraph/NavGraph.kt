@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.app.rediexpress.presentation.screens.auth.forgotpass.ForgotPasswordScreen
 import com.app.rediexpress.presentation.screens.auth.login.LogInScreen
+import com.app.rediexpress.presentation.screens.auth.otp.OTPScreen
 import com.app.rediexpress.presentation.screens.scaffold.MainScreen
 import com.app.rediexpress.presentation.screens.auth.signup.SignUpScreen
 import com.app.rediexpress.presentation.screens.welcome.WelcomeScreen
@@ -45,6 +46,9 @@ fun NavGraph(
             }
             composable(route = Screen.ForgotPassword.route){
                 ForgotPasswordScreen(navController = navController)
+            }
+            composable(route = Screen.OTP.route){
+                //OTPScreen(navController = navController)
             }
 
         }
