@@ -12,6 +12,7 @@ sealed class Screen(
     data object Login : Screen(route = "loginScreen")
     data object ForgotPassword : Screen(route = "forgotPasswordScreen")
     data object OTP : Screen(route = "OTPScreen")
+    data object NewPassword : Screen(route = "NewPasswordScreen")
 
     data object Home : Screen(route = "homeScreen")
     data object Wallet : Screen(route = "walletScreen")

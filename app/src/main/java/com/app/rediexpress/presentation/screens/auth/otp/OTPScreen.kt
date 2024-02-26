@@ -41,14 +41,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.app.rediexpress.presentation.components.ThemeButton
+import com.app.rediexpress.presentation.navgraph.Screen
 import com.app.rediexpress.ui.theme.Black
 import com.app.rediexpress.ui.theme.Gray
 import kotlinx.coroutines.delay
 
 @Composable
-@Preview(showBackground = true)
 fun OTPScreen(
-    //navController: NavController
+    navController: NavController
 ){
     var value by remember {
         mutableStateOf("")
@@ -56,9 +56,7 @@ fun OTPScreen(
     var second by remember {
         mutableIntStateOf(60)
     }
-    val text =
-        if (second > 0) "If you didn’t receive code, resend after $second"
-        else "Отправить"
+    val text = "If you didn’t receive code, resend after $second"
     LaunchedEffect(second){
         while (second > 0){
             delay(1000)
@@ -88,21 +86,16 @@ fun OTPScreen(
             )
         }
         Column(
-            modifier = Modifier.weight(1.5f)
+            modifier = Modifier.weight(2.5f),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             CodeTextField(
                 value = value,
                 length = 6,
-                onValueChange ={value = it}
-                //navController = navController
+                onValueChange ={value = it},
+                navController = navController
             )
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+            Spacer(modifier = Modifier.height(20.dp))
             if (second > 0){
                 Text(
                     text = text,
@@ -113,17 +106,18 @@ fun OTPScreen(
                 Text(
                     modifier = Modifier
                         .clickable { second = 60 },
-                    text = "Отправить код",
+                    text = "resend",
                     color = Gray,
                     fontSize = 14.sp
                 )
             }
+
         }
         Column(
             modifier = Modifier.weight(1.5f),
         ) {
             ThemeButton(
-                label = "Log in",
+                label = "Set New Password",
                 onClick = {
                 },
                 modifier = Modifier
@@ -131,6 +125,7 @@ fun OTPScreen(
                     .height(50.dp)
             )
         }
+        Spacer(modifier = Modifier.weight(5.5f))
     }
 }
 
@@ -142,11 +137,10 @@ private fun CodeTextField(
     boxWidth: Dp = 32.dp,
     boxHeight: Dp = 32.dp,
     enabled: Boolean = true,
-    //spaceBetweenBoxes: Dp = 14.dp,
     keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
     keyboardActions: KeyboardActions = KeyboardActions(),
     onValueChange: (String) -> Unit,
-    //navController: NavController
+    navController: NavController
 ) {
     BasicTextField(
         modifier = modifier,
@@ -157,7 +151,7 @@ private fun CodeTextField(
                 onValueChange(it)
             }
             if (it.length == 6 && it == "333333"){
-                //navController.navigate(Screen.AddPassword.route)
+                navController.navigate(Screen.NewPassword.route)
             }
         },
         enabled = enabled,

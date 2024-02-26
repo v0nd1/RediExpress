@@ -29,6 +29,7 @@ import androidx.navigation.NavController
 import com.app.rediexpress.R
 import com.app.rediexpress.presentation.components.ThemeButton
 import com.app.rediexpress.presentation.components.ThemeCheckBox
+import com.app.rediexpress.presentation.components.ThemePasswordField
 import com.app.rediexpress.presentation.components.ThemeTextField
 import com.app.rediexpress.presentation.navgraph.Screen
 import com.app.rediexpress.ui.theme.Blue
@@ -122,7 +123,7 @@ fun LogInScreen(
                 contentDescription = null,
                 modifier = Modifier
                     .size(20.dp)
-                    .clickable {  },
+                    .clickable { },
                 tint = Orange
             )
         }
@@ -141,11 +142,10 @@ private fun ColumnFields(modifier: Modifier){
             label = "Email Address"
         )
         Spacer(modifier = Modifier.height(14.dp))
-        ThemeTextField(
+        ThemePasswordField(
             placeholder = "**********",
-            imeAction = ImeAction.Next,
-            label = "Password",
-            keyboardType = KeyboardType.NumberPassword
+            imeAction = ImeAction.Done,
+            label = "Password"
         )
     }
 }

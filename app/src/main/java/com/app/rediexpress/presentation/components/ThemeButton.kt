@@ -39,7 +39,7 @@ fun ThemeButton(
             contentColor = contentColor
         ),
         modifier = modifier,
-        shape = RoundedCornerShape(15),
+        shape = RoundedCornerShape(10),
         border = border
 
     ) {

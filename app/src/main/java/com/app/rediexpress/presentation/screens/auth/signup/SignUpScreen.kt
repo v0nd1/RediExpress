@@ -32,6 +32,7 @@ import androidx.navigation.NavController
 import com.app.rediexpress.R
 import com.app.rediexpress.presentation.components.ThemeButton
 import com.app.rediexpress.presentation.components.ThemeCheckBox
+import com.app.rediexpress.presentation.components.ThemePasswordField
 import com.app.rediexpress.presentation.components.ThemeTextField
 import com.app.rediexpress.presentation.navgraph.Screen
 import com.app.rediexpress.ui.theme.Blue
@@ -45,7 +46,6 @@ fun SignUpScreen(navController: NavController){
             .fillMaxSize()
             .padding(horizontal = 20.dp)
     ) {
-        Spacer(modifier = Modifier.weight(0.5f))
         Column(
             modifier = Modifier.weight(1f)
         ) {
@@ -62,7 +62,7 @@ fun SignUpScreen(navController: NavController){
             )
         }
 
-        ColumnOfTextFields(modifier = Modifier.weight(6.5f))
+        ColumnOfTextFields(modifier = Modifier.weight(7f))
         RowPrivacy(modifier = Modifier.weight(1f))
         Box(
             modifier = Modifier.weight(1.5f),
@@ -172,18 +172,16 @@ private fun ColumnOfTextFields(modifier: Modifier){
             label = "Email Address"
         )
         Spacer(modifier = Modifier.height(14.dp))
-        ThemeTextField(
+        ThemePasswordField(
             placeholder = "**********",
             imeAction = ImeAction.Next,
-            label = "Password",
-            keyboardType = KeyboardType.NumberPassword
+            label = "Password"
         )
         Spacer(modifier = Modifier.height(14.dp))
-        ThemeTextField(
+        ThemePasswordField(
             placeholder = "**********",
             imeAction = ImeAction.Done,
-            label = "Confirm Password",
-            keyboardType = KeyboardType.NumberPassword
+            label = "Confirm Password"
         )
     }
 
