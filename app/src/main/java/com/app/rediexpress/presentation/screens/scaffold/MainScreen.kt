@@ -65,74 +65,74 @@ fun MainScreen(navController: NavHostController = rememberNavController()){
     }
 }
 
-@Composable
-fun BottomBar(navController: NavHostController){
-    val screens = listOf(
-        Screen.Tests,
-        Screen.Results,
-        Screen.Support,
-        Screen.Account
-    )
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
-    val bottomBarDestination = screens.any { it.route == currentDestination?.route }
-    if (bottomBarDestination) {
-        NavigationBar(
-            modifier = Modifier.border(1.dp, GrayLight2),
-            containerColor = White2,
-            contentColor = Gray
-        ){
-            screens.forEach { screen ->
-                AddItem(
-                    screen = screen,
-                    currentDestination = currentDestination,
-                    navController = navController)
-            }
-        }
-    }
-}
-
-
-@Composable
-fun RowScope.AddItem(
-    screen: Screen,
-    currentDestination: NavDestination?,
-    navController: NavHostController
-) {
-    val isSelected = currentDestination?.hierarchy?.any {
-        it.route == screen.route
-    } == true
-    val backgroundModifier = if (isSelected) Modifier.background(color = BlueLight) else Modifier
-    NavigationBarItem(
-        label = {
-            Text(text = screen.title, fontFamily = Roboto)
-        },
-        icon = {
-            Icon(
-                painter = painterResource(id = screen.iconFilled),
-                contentDescription = "Navigation Icon",
-                modifier = Modifier.size(35.dp)
-            )
-        },
-        selected = currentDestination?.hierarchy?.any {
-            it.route == screen.route
-        } == true,
-        onClick = {
-            navController.navigate(screen.route) {
-                popUpTo(navController.graph.findStartDestination().id)
-                launchSingleTop = true
-            }
-        },
-        modifier = backgroundModifier,
-        colors = NavigationBarItemDefaults.colors(
-            selectedIconColor= BlueLight,
-            selectedTextColor = BlueLight,
-            unselectedIconColor = Gray,
-            unselectedTextColor = Gray,
-            disabledIconColor = Color.Cyan,
-            disabledTextColor = Gray,
-            indicatorColor = White
-        )
-    )
-}
-
+//@Composable
+//fun BottomBar(navController: NavHostController){
+//    val screens = listOf(
+//        Screen.Tests,
+//        Screen.Results,
+//        Screen.Support,
+//        Screen.Account
+//    )
+//    val navBackStackEntry by navController.currentBackStackEntryAsState()
+//    val currentDestination = navBackStackEntry?.destination
+//    val bottomBarDestination = screens.any { it.route == currentDestination?.route }
+//    if (bottomBarDestination) {
+//        NavigationBar(
+//            modifier = Modifier.border(1.dp, GrayLight2),
+//            containerColor = White2,
+//            contentColor = Gray
+//        ){
+//            screens.forEach { screen ->
+//                AddItem(
+//                    screen = screen,
+//                    currentDestination = currentDestination,
+//                    navController = navController)
+//            }
+//        }
+//    }
+//}
+//
+//
+//@Composable
+//fun RowScope.AddItem(
+//    screen: Screen,
+//    currentDestination: NavDestination?,
+//    navController: NavHostController
+//) {
+//    val isSelected = currentDestination?.hierarchy?.any {
+//        it.route == screen.route
+//    } == true
+//    val backgroundModifier = if (isSelected) Modifier.background(color = BlueLight) else Modifier
+//    NavigationBarItem(
+//        label = {
+//            Text(text = screen.title, fontFamily = Roboto)
+//        },
+//        icon = {
+//            Icon(
+//                painter = painterResource(id = screen.iconFilled),
+//                contentDescription = "Navigation Icon",
+//                modifier = Modifier.size(35.dp)
+//            )
+//        },
+//        selected = currentDestination?.hierarchy?.any {
+//            it.route == screen.route
+//        } == true,
+//        onClick = {
+//            navController.navigate(screen.route) {
+//                popUpTo(navController.graph.findStartDestination().id)
+//                launchSingleTop = true
+//            }
+//        },
+//        modifier = backgroundModifier,
+//        colors = NavigationBarItemDefaults.colors(
+//            selectedIconColor= BlueLight,
+//            selectedTextColor = BlueLight,
+//            unselectedIconColor = Gray,
+//            unselectedTextColor = Gray,
+//            disabledIconColor = Color.Cyan,
+//            disabledTextColor = Gray,
+//            indicatorColor = White
+//        )
+//    )
+//}
+//

@@ -91,6 +91,8 @@ fun WelcomeScreen(
                             color = Blue,
                             fontSize = 12.sp,
                             modifier = Modifier.clickable {
+                                onEvent(WelcomeEvent.SaveAppEntry)
+                                navController.popBackStack()
                                 navController.navigate(Screen.Login.route)
                             }
                         )
