@@ -74,7 +74,8 @@ fun SignUpScreen(navController: NavController){
                 ThemeButton(
                     label = "Sign Up",
                     onClick = {
-
+                        navController.navigate(Screen.MainNavigation.route)
+                        print("DDDD")
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -158,26 +159,26 @@ private fun ColumnOfTextFields(modifier: Modifier){
             imeAction = ImeAction.Next,
             label = "Full name"
         )
-        Spacer(modifier = Modifier.height(14.dp))
+//        Spacer(modifier = Modifier.height(14.dp))
         ThemeTextField(
             placeholder = "+7(999)999-99-99",
             imeAction = ImeAction.Next,
             label = "Phone Number",
             keyboardType = KeyboardType.NumberPassword
         )
-        Spacer(modifier = Modifier.height(14.dp))
+//        Spacer(modifier = Modifier.height(14.dp))
         ThemeTextField(
             placeholder = "***********@mail.com",
             imeAction = ImeAction.Next,
             label = "Email Address"
         )
-        Spacer(modifier = Modifier.height(14.dp))
+//        Spacer(modifier = Modifier.height(14.dp))
         ThemePasswordField(
             placeholder = "**********",
             imeAction = ImeAction.Next,
             label = "Password"
         )
-        Spacer(modifier = Modifier.height(14.dp))
+//        Spacer(modifier = Modifier.height(14.dp))
         ThemePasswordField(
             placeholder = "**********",
             imeAction = ImeAction.Done,

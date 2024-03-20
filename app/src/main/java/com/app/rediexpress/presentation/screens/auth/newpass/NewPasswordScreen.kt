@@ -20,7 +20,6 @@ import com.app.rediexpress.presentation.components.ThemePasswordField
 import com.app.rediexpress.presentation.navgraph.Screen
 import com.app.rediexpress.ui.theme.Gray
 
-@Preview(showBackground = true)
 @Composable
 fun NewPasswordScreen(
     navController: NavController

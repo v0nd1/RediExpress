@@ -62,17 +62,17 @@ fun LogInScreen(
                 fontWeight = FontWeight.SemiBold
             )
         }
-
-        ColumnFields(modifier = Modifier
-            .fillMaxWidth()
-            .weight(3f)
-        )
-        Elements(
-            modifier = Modifier
-                .weight(0.5f),
-            navController = navController
-        )
-        Spacer(modifier = Modifier.weight(3f))
+        Column(
+            modifier = Modifier.weight(5f)
+        ) {
+            ColumnFields(modifier = Modifier
+                .fillMaxWidth()
+            )
+            Elements(
+                navController = navController
+            )
+        }
+        Spacer(modifier = Modifier.weight(1.5f))
         Box(
             modifier = Modifier.weight(1.5f),
             contentAlignment = Alignment.Center,
@@ -141,7 +141,7 @@ private fun ColumnFields(modifier: Modifier){
             imeAction = ImeAction.Next,
             label = "Email Address"
         )
-        Spacer(modifier = Modifier.height(14.dp))
+        //Spacer(modifier = Modifier.height(14.dp))
         ThemePasswordField(
             placeholder = "**********",
             imeAction = ImeAction.Done,
@@ -152,7 +152,9 @@ private fun ColumnFields(modifier: Modifier){
 
 
 @Composable
-private fun Elements(modifier: Modifier, navController: NavController){
+private fun Elements(
+    modifier: Modifier = Modifier,
+    navController: NavController){
     Column(
         modifier = modifier
     ) {
